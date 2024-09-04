@@ -152,8 +152,8 @@
     </div>
 
     <div class="footer">
-        <p>Terima kasih atas dedikasi Anda dalam mendidik generasi muda.</p>
-        <p>SMK Negeri 1 Contoh © {{ date('Y') }}</p>
+        <p>Terima kasih telah menggunakan layanan kami.</p>
+        <p>PendidikPay © {{ date('Y') }}</p>
     </div>
 </body>
 </html>

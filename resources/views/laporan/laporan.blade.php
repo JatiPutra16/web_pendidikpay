@@ -5,117 +5,100 @@
 @section('judulkonten')
 
 @section('konten')
-    
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-    h1{
+    
+    h1 {
         font-family: 'Righteous', sans-serif;
     }
-</style>
+    
+    .card-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    .report-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        text-align: center;
+        height: 400px;
+    }
+    
+    .report-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .report-card i {
+        font-size: 50px;
+        color: #220B44; 
+    }
+    
+    .report-card h3 {
+        font-size: 24px;
+        color: #220B44; 
+    }
 
-<!-- Include jQuery and jQuery UI -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    .report-card p {
+        font-size: 14px;
+        color: #343a40;
+    }
+
+    .report-card button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    .report-card button .fas {
+        margin-left: 8px;
+        color: white; /* Warna putih untuk ikon panah */
+    }
+
+</style>
 
 <div class="container mt-3">
     <div class="bg-white rounded px-3 py-1 mb-3 d-flex justify-content-between">
         <div class="me-3">
-            <h1>Laporan Penggajian</h1>
-            <p>Berikut adalah daftar laporan penggajian :</p>
+            <h1>Laporan</h1>
+            <p>Berikut adalah daftar seluruh laporan:</p>
         </div>
     </div>
-
-    <!-- Form Filter -->
-    <div class="bg-white rounded px-3 py-3 mb-3">
-        <form method="GET" action="{{ route('filterGaji') }}">
-            <div class="row">
-                <!-- Filter Nama -->
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nama">Nama Guru</label>
-                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Guru" value="{{ request()->get('nama') }}">
-                    </div>
-                </div>
-                
-                <!-- Filter Per Bulan -->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="bulan">Bulan</label>
-                        <input type="month" name="bulan" id="bulan" class="form-control" value="{{ request()->get('bulan') }}">
-                    </div>
-                </div>
-
-                <!-- Filter Periode Rentang Bulan -->
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="periode">Periode Rentang Bulan</label>
-                        <div class="d-flex">
-                            <input type="month" name="start_bulan" id="start_bulan" class="form-control me-2" value="{{ request()->get('start_bulan') }}">
-                            <span class="me-2 align-self-center">s/d</span>
-                            <input type="month" name="end_bulan" id="end_bulan" class="form-control" value="{{ request()->get('end_bulan') }}">
-                        </div>
-                    </div>
-                </div>
+    <div class="bg-white rounded p-4">
+        <div class="card-container">
+            <div class="report-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Laporan Absen</h3>
+                <p>Menampilkan laporan kehadiran guru dalam satu bulan atau periode tertentu.</p>
+                <button onclick="window.location.href='{{ url('/laporanabsen') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
             </div>
-            
-            <div class="d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary">Filter</button>
-                <a href="{{ route('laporanGaji') }}" class="btn btn-secondary ms-2">Reset</a>
+            <div class="report-card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Laporan Gaji</h3>
+                <p>Melihat laporan pembayaran gaji guru berdasarkan data yang ada.</p>
+                <button onclick="window.location.href='{{ url('/laporangaji') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
             </div>
-        </form>
-    </div>
-    
-    <!-- Tabel Laporan Gaji -->
-    <div class="table-responsive bg-white rounded p-4">
-        <table class="table table-striped" id="datatabel">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>NIK</th>
-                    <th>Nama</th>
-                    <th>Gaji/Jam</th>
-                    <th>Jumlah Jam Kehadiran</th>
-                    <th>Total Gaji</th>
-                    <th>Gaji Bersih</th>
-                    <th>Tanggal Gaji</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach ($var_gaji as $index => $b)
-                <tr>
-                    <td>{{$index+1}}</td>
-                    <td>{{ $b->absen->guru->nik }}</td>
-                    <td>{{ $b->absen->guru->namaguru }}</td>
-                    <td>RP {{ number_format($b->absen->guru->gajiperjam, 0, ',', '.') }}</td>
-                    <td>{{$b->total_jam}}</td>
-                    <td>RP {{ number_format($b->total_gaji, 0, ',', '.') }}</td>
-                    <td>RP {{ number_format($b->gaji_bersih, 0, ',', '.') }}</td>
-                    <td>{{ date('Y-m-d', strtotime($b->tgl_gaji)) }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+            <div class="report-card">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h3>Laporan Guru</h3>
+                <p>Mengakses informasi lengkap mengenai data guru yang terdaftar.</p>
+                <button onclick="window.location.href='{{ url('/laporanguru') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
+            </div>
+        </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $("#nama").autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    url: "{{ route('autocompleteGuru') }}",
-                    data: {
-                        term: request.term
-                    },
-                    success: function(data) {
-                        response(data);
-                    }
-                });
-            },
-            minLength: 2
-        });
-    });
-</script>
 
 @endsection

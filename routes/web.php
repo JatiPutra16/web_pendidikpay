@@ -58,7 +58,6 @@ Route::post('/absen/tambah', 'AbsenController@tambah')->middleware('auth');;
 Route::get('/absen/edit/{id}', 'AbsenController@edit')->middleware('auth');;
 Route::post('/absen/update/{id}', 'AbsenController@update')->middleware('auth');;
 Route::delete('/absen/delete', 'AbsenController@delete')->middleware('auth');;
-Route::get('/absen/cetak-pdf/{bulan?}', 'AbsenController@cetakPDF');
 Route::get('/absen/data/{id}', 'AbsenController@getDataAbsen');
 
 Route::get('/gaji', 'GajiController@gajitampil')->middleware('auth');;
@@ -73,9 +72,22 @@ Route::get('/absen/data/{id}', 'GajiController@getAbsenData');
 Route::get('/absen/idabsen/{id}', 'GajiController@getIdAbsen');
 
 Route::get('/laporan', 'LaporanController@laporantampil')->middleware('auth');;
-Route::get('/filter-gaji', [LaporanController::class, 'filterGaji'])->name('filterGaji');
-Route::get('/laporan-gaji', [LaporanController::class, 'laporanGaji'])->name('laporanGaji');
-Route::get('/autocomplete-guru', [LaporanController::class, 'autocompleteGuru'])->name('autocompleteGuru');
+Route::get('/autocomplete-guru', 'LaporanController@autocompleteGuru')->name('autocompleteGuru');
+
+Route::get('/laporangaji', 'LaporanController@laporanGajitampil')->middleware('auth');;
+Route::get('/laporan-gaji', 'LaporanController@laporanGaji')->name('laporanGaji');
+Route::get('/filter-gaji', 'LaporanController@filterGaji')->name('filterGaji');
+Route::get('laporan-gaji/cetak-pdf', 'LaporanController@cetakPDFGaji')->name('cetakPDFGaji');
+
+Route::get('/laporanabsen', 'LaporanController@laporanAbsentampil')->middleware('auth');;
+Route::get('/laporan-absen', 'LaporanController@laporanAbsen')->name('laporanAbsen');
+Route::get('/filter-absen', 'LaporanController@filterAbsen')->name('filterAbsen');
+Route::get('/laporan-absen/cetak-pdf', 'LaporanController@cetakPDFAbsen')->name('cetakPDFAbsen');
+
+Route::get('/laporanguru', 'LaporanController@laporanGurutampil')->middleware('auth');;
+Route::get('/laporan-guru', 'LaporanController@LaporanGuru')->name('laporanGuru');
+Route::get('/filter-guru', 'LaporanController@filterGuru')->name('filterGuru');
+Route::get('/laporan-guru/cetak-pdf', 'LaporanController@cetakPDFGuru')->name('cetakPDFGuru');
 
 Route::get('/login', 'LoginController@login')->name('login');
 Route::post('loginaksi', 'LoginController@loginaksi')->name('loginaksi');

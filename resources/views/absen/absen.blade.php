@@ -42,9 +42,6 @@
                         <option value="12">Desember</option>
                     </select>
                 </div>
-                <div>
-                    <button onclick="cetakPDF()" class="btn btn-secondary"><i class="fas fa-print me-2"></i> Cetak PDF</button>
-                </div>
             </div>
             <table class="table table-striped" id="datatabel">
             <thead>
@@ -67,7 +64,7 @@
                         <td>{{$b->guru->namaguru}}</td> 
                         <td>{{$b->jumlah_jam}} jam</td>
                         <td>{{$b->jumlah_hari}} hari</td>
-                        <td>{{ date('Y-m-d', strtotime($b->tanggal)) }}</td>
+                        <td>{{ \Carbon\Carbon::parse($b->tanggal)->format('d M Y') }}</td>
                         <td>
                             @if ($b->status_gaji == 'Sudah Dibayar')
                                 <span class="badge bg-success">{{$b->status_gaji}}</span>

@@ -77,7 +77,7 @@ li {
                 <li class="sidebar-item">
                     <a href="laporan" class="sidebar-link" title="Laporan"> 
                         <i class="fas fa-file-alt"></i> 
-                        <span>Laporan Gaji</span>
+                        <span>Laporan</span>
                     </a>
                 </li>
             </ul>            

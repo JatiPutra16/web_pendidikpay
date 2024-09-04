@@ -94,21 +94,6 @@ class AbsenController extends Controller
         return redirect('/absen')->with('success', 'Data absen berhasil dihapus.');
     }
 
-    public function cetakPDF($bulan = null)
-    {
-        $tahun = now()->year; // Mengambil tahun saat ini, atau sesuaikan sesuai kebutuhan
-        $namaBulan = $bulan ? Carbon::createFromDate($tahun, $bulan, 1)->format('F') : 'Semua Bulan';
-    
-        $absen = Absen::with('guru')
-                        ->when($bulan, function ($query) use ($bulan) {
-                            return $query->whereMonth('tanggal', $bulan);
-                        })
-                        ->get();
-    
-        $pdf = PDF::loadView('absen.pdf', compact('absen', 'namaBulan', 'tahun'));
-        return $pdf->stream();
-    }
-
     public function getDataAbsen($id)
     {
         $absen = Absen::where('idguru', $id)->first(); 

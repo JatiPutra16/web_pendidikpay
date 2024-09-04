@@ -27,7 +27,7 @@ class HomeController extends Controller
                             });
 
         // Mengambil data 5 guru terbaru
-        $guruTerbaru = Guru::latest()->take(5)->get();
+        $guruTerbaru = Guru::latest()->take(4)->get();
 
         return view('home', compact('jumlahGuru', 'jumlahAbsen', 'jumlahGaji', 'gajiPerBulan', 'guruTerbaru'));
     }

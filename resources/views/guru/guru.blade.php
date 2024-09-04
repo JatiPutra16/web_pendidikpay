@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="table-responsive bg-white rounded p-4">
-        <table class="table table-striped " id="datatabel">
+        <table class="table table-striped" id="datatabel">
             <thead>
                 <tr>
                     <th>No</th>

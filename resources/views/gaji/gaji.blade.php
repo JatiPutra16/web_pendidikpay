@@ -42,9 +42,6 @@
                         <option value="12">Desember</option>
                     </select>
                 </div>
-                <div>
-                    <button onclick="cetakPDF()" class="btn btn-secondary"><i class="fas fa-print me-2"></i>Cetak PDF</button>
-                </div>
             </div>
             <table class="table table-striped" id="datatabel">
             <thead>
@@ -70,7 +67,7 @@
                     <td>{{$b->total_jam}}</td>
                     <td>RP {{ number_format($b->total_gaji, 0, ',', '.') }}</td>
                     <td>RP {{ number_format($b->gaji_bersih, 0, ',', '.') }}</td>
-                    <td>{{ date('Y-m-d', strtotime($b->tgl_gaji)) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($b->tgl_gaji)->format('d M Y') }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button onclick="cetakPDFprive({{$b->idgaji}})" class="btn btn-primary my-1 w-100">

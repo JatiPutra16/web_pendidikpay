@@ -108,13 +108,11 @@
                 <img src="{{asset('gambar/Header_web.png')}}" class="img-fluid rounded">
             </div>
             <div class="col-12 col-lg-6 content">
-                <div style="text-align: left;">
+                <div class="mb-5" style="text-align: left;">
                     <h1>Welcome</h1>
                     <p>Pendidik Pay adalah platform inovatif untuk penggajian guru yang menawarkan pengalaman pembayaran yang mudah dan adil. Fokus pada gaji tepat waktu, transparansi, dan perhitungan otomatis berdasarkan kinerja, Pendidik Pay bertujuan meningkatkan kesejahteraan guru dan mendukung kualitas pendidikan yang lebih baik.</p>
-                    <p>Email    : jatibintang16@gmail.com</p>
-                    <p>Phone    : +62-821-2034-4425</p>
                 </div>
-                <div class="d-flex mt-3">
+                <div class="d-flex mt-5">
                     <a href="login" class="btn btn-danger btn-lg">Get Started As Admin</a>
                     <div class="ms-5">
                         <img src="{{asset('gambar/icon_rplsmk.png')}}" class="img-fluid rounded">
