@@ -16,38 +16,7 @@ class LaporanController extends Controller
         return view('laporan.laporan');
     }
 
-    public function laporanGajitampil(Request $request)
-    {
-        $bulan = now()->month;
-        $tahun = now()->year;
-
-        $dataabsen = Absen::select('idabsen', 'idguru', 'jumlah_jam', 'jumlah_hari')
-            ->whereMonth('tanggal', $bulan)
-            ->whereYear('tanggal', $tahun)
-            ->get();
-
-        $dataguru = Guru::whereIn('idguru', $dataabsen->pluck('idguru')->unique())
-                        ->get();
-
-        $absen_with_guru = $dataabsen->map(function ($absen) use ($dataguru) {
-            $guru = $dataguru->where('idguru', $absen->idguru)->first();
-            return [
-                'idabsen' => $absen->idabsen,
-                'namaguru' => $guru ? $guru->namaguru : 'Unknown'
-            ];
-        });
-
-        $datagaji = Gaji::with(['guru', 'absen'])->get();
-
-        return view('laporan.laporangaji', [
-            'var_gaji' => $datagaji,
-            'var_absen' => $dataabsen,
-            'absen_with_guru' => $absen_with_guru,
-            'bulan' => $bulan,
-        ]);
-    }
-
-    public function filterGaji(Request $request)
+    public function laporanGajiTampil(Request $request)
     {
         $query = Gaji::query();
 
@@ -73,44 +42,30 @@ class LaporanController extends Controller
         }
 
         // Ambil data setelah filter
-        $var_gaji = $query->get();
+        $var_gaji = $query->with(['guru', 'absen'])->get();
 
-        // Return view dengan data yang sudah difilter
-        return view('laporan.laporangaji', compact('var_gaji'));
-    }
+        // Mengelompokkan total gaji per bulan
+        $chartData = $var_gaji->groupBy(function($item) {
+            return $item->tgl_gaji->format('M Y');
+        })->map(function($items) {
+            $totalGajiPerBulan = $items->sum('total_gaji');
+            return [
+                'bulan' => $items->first()->tgl_gaji->format('M Y'),
+                'total_gaji' => $totalGajiPerBulan
+            ];
+        })->values();
+        
 
-    public function laporanGaji(Request $request)
-    {
-        // Ambil data gaji sesuai dengan filter yang diterapkan
-        $query = Gaji::with(['absen.guru']);
-        
-        // Filter berdasarkan nama guru
-        if ($request->filled('nama')) {
-            $query->whereHas('absen.guru', function ($q) use ($request) {
-                $q->where('namaguru', 'like', '%' . $request->nama . '%');
-            });
-        }
-        
-        // Filter berdasarkan bulan
-        if ($request->filled('bulan')) {
-            $query->whereMonth('tgl_gaji', '=', date('m', strtotime($request->bulan)))
-                ->whereYear('tgl_gaji', '=', date('Y', strtotime($request->bulan)));
-        }
-        
-        // Filter berdasarkan rentang periode bulan
-        if ($request->filled('start_bulan') && $request->filled('end_bulan')) {
-            $query->whereBetween('tgl_gaji', [
-                date('Y-m-01', strtotime($request->start_bulan)),
-                date('Y-m-t', strtotime($request->end_bulan))
-            ]);
-        }
-        
-        $var_gaji = $query->get();
-    
         return view('laporan.laporangaji', [
             'var_gaji' => $var_gaji,
+            'chartData' => $chartData,
+            'nama' => $request->nama,
+            'bulan' => $request->bulan,
+            'start_bulan' => $request->start_bulan,
+            'end_bulan' => $request->end_bulan,
         ]);
     }
+
     
     public function cetakPDFGaji(Request $request)
     {
@@ -160,38 +115,21 @@ class LaporanController extends Controller
     }
     
     
-
-    public function laporanAbsentampil(Request $request)
-    {
-        $dataabsen = Absen::with('guru')->get();
-        $dataguru = Guru::all();
-        $bulan = now()->month;
-
-        return view('laporan.laporanabsen', [
-            'var_absen' => $dataabsen,
-            'var_guru' => $dataguru,
-            'bulan' => $bulan,
-        ]);
-    }
-
-    public function filterAbsen(Request $request)
+    public function laporanTampilAbsen(Request $request)
     {
         $query = Absen::query();
 
-        // Filter berdasarkan nama guru
         if ($request->filled('nama')) {
             $query->whereHas('guru', function ($q) use ($request) {
                 $q->where('namaguru', 'like', '%' . $request->nama . '%');
             });
         }
 
-        // Filter berdasarkan bulan
         if ($request->filled('bulan')) {
             $query->whereMonth('tanggal', '=', date('m', strtotime($request->bulan)))
                 ->whereYear('tanggal', '=', date('Y', strtotime($request->bulan)));
         }
 
-        // Filter berdasarkan rentang periode bulan
         if ($request->filled('start_bulan') && $request->filled('end_bulan')) {
             $query->whereBetween('tanggal', [
                 date('Y-m-01', strtotime($request->start_bulan)),
@@ -200,9 +138,23 @@ class LaporanController extends Controller
         }
 
         $var_absen = $query->with('guru')->get();
+        
+        // Chart Data
+        $chartData = $var_absen->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->tanggal)->format('M Y');
+        })->map(function($items) {
+            $total_jam = $items->sum(function($item) {
+                return $item->jumlah_jam * $item->jumlah_hari;
+            });
+            return [
+                'bulan' => \Carbon\Carbon::parse($items->first()->tanggal)->format('M Y'),
+                'total_jam' => $total_jam
+            ];
+        })->values();
 
         return view('laporan.laporanabsen', [
             'var_absen' => $var_absen,
+            'chartData' => $chartData,
             'nama' => $request->nama,
             'bulan' => $request->bulan,
             'start_bulan' => $request->start_bulan,
@@ -249,8 +201,8 @@ class LaporanController extends Controller
         // Load view PDF dengan data yang sudah difilter
         $pdf = PDF::loadView('laporan.pdfabsen', [
             'var_absen' => $var_absen,
-            'nik' => $guru ? '-' : ($var_absen->first()->guru->nik ?? '-'),
-            'namaguru' => $guru ? '-' : ($var_absen->first()->guru->namaguru ?? '-'),
+            'nik' => empty($request->nama) ? '' : ($guru ? '-' : ($var_absen->first()->guru->nik ?? '-')),
+            'namaguru' => empty($request->nama) ? '' : ($guru ? '-' : ($var_absen->first()->guru->namaguru ?? '-')),
             'bulan' => $request->bulan,
             'start_bulan' => $request->start_bulan,
             'end_bulan' => $request->end_bulan

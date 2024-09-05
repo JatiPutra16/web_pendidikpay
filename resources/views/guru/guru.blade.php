@@ -20,7 +20,7 @@
             <p>Berikut adalah informasi tentang para guru honorer:</p>
         </div>
         <div class="tombol-container mt-2 d-flex" style="flex-grow: 1; justify-content: right;">
-            <button class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahModal"><i class="lni lni-plus pe-2"></i>Tambah Data Guru</button>
+            <button class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus pe-2"></i>Tambah Data Guru</button>
         </div>
     </div>
     <div class="table-responsive bg-white rounded p-4">

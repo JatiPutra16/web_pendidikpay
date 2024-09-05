@@ -84,10 +84,10 @@
         <h5>PendidikPay</h5>
         <h3>Laporan Absen</h3>
 
-        @if($nik === '-' || !empty($nik))
+        @if(!empty($nik))
             <h4>NIK: {{ $nik }}</h4>
         @endif
-        @if($namaguru === '-' || !empty($namaguru))
+        @if(!empty($namaguru))
             <h4>Guru: {{ $namaguru }}</h4>
         @endif
         @if(isset($bulan))

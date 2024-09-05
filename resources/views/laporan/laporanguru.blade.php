@@ -1,7 +1,5 @@
 @extends('index')
 
-@section('judultitle', ' - Laporan Data Guru')
-
 @section('judulkonten')
 
 @section('konten')
@@ -14,6 +12,14 @@
 </style>
 
 <div class="container mt-3">
+    <nav style="--bs-breadcrumb-divider: '/'" aria-label="breadcrumb">
+        <ol class="breadcrumb text-dark">
+            <li class="breadcrumb-item"><a href="{{ route('laporanTampil') }}" class="text-white text-decoration-none">Menu Utama Laporan</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('laporanAbsen') }}" class="text-white text-decoration-none">Laporan Absen</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('laporanGajiTampil') }}" class="text-white text-decoration-none">Laporan Gaji</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Laporan Guru</li>
+        </ol>
+    </nav>
     <div class="bg-white rounded px-3 py-1 mb-3 d-flex justify-content-between">
         <div class="me-3">
             <h1>Laporan Data Guru</h1>
@@ -23,7 +29,7 @@
 
     <!-- Form Filter -->
 <div class="bg-white rounded px-3 py-3 mb-3">
-    <form method="GET" id="filterForm">
+    <form method="GET" id="filterForm" action="{{ route('filterGuru') }}">
         <div class="row">
             <!-- Filter Nama -->
             <div class="col-md-4">
@@ -46,9 +52,9 @@
                 <div class="form-group">
                     <label for="periode">Periode Rentang Bulan</label>
                     <div class="d-flex">
-                        <input type="month" name="start_bulan" id="start_bulan" class="form-control me-2" value="{{ request()->get('start_bulan') }}">
+                        <input type="month" name="start_bulan" id="start_bulan" class="form-control me-2" value="{{ request()->get('start_bulan') }}" onchange="setMinEndDate()">
                         <span class="me-2 align-self-center">s/d</span>
-                        <input type="month" name="end_bulan" id="end_bulan" class="form-control" value="{{ request()->get('end_bulan') }}">
+                        <input type="month" name="end_bulan" id="end_bulan" class="form-control" value="{{ request()->get('end_bulan') }}" min="{{ request()->get('start_bulan') }}">
                     </div>
                 </div>
             </div>
@@ -56,8 +62,8 @@
         
         <div class="d-flex justify-content-end mt-3">
             <button type="button" onclick="cetakPDF()" class="btn btn-secondary"><i class="fas fa-print me-2"></i>Cetak PDF</button>
-            <button type="submit" class="btn btn-primary ms-2">Filter</button>
-            <a href="{{ route('laporanGuru') }}" class="btn btn-danger ms-2">Reset</a>
+            <button type="submit" class="btn btn-primary ms-2"><i class="fas fa-filter me-2"></i> Filter</button>
+            <a href="{{ route('laporanGuru') }}" class="btn btn-danger ms-2"><i class="fas fa-undo me-2"></i> Reset</a>
         </div>
     </form>
 </div>
@@ -138,6 +144,13 @@
                 "&end_bulan=" + encodeURIComponent(endBulan);
 
         window.open(url, '_blank');
+    }
+</script>
+
+<script>
+    function setMinEndDate() {
+        let startDate = document.getElementById('start_bulan').value;
+        document.getElementById('end_bulan').setAttribute('min', startDate);
     }
 </script>
 @endsection

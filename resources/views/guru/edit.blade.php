@@ -29,7 +29,7 @@
                         @csrf
                         <div class="form-group m-2">
                             <label for="nik">NIK :</label>
-                            <input type="text" class="form-control" id="nik" name="nik" value="{{ $b->nik }}" required>
+                            <input type="number" class="form-control" id="nik" name="nik" value="{{ $b->nik }}" required>
                         </div>
 
                         <div class="form-group m-2">
@@ -44,12 +44,12 @@
 
                         <div class="form-group m-2">
                             <label>Alamat :</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $b->alamat }}" required>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="4" required>{{ $b->alamat }}</textarea>
                         </div>
 
                         <div class="form-group m-2">
                             <label>No Telepon :</label>
-                            <input type="text" class="form-control" id="tlp" name="tlp" value="{{ $b->tlp }}" required>
+                            <input type="number" class="form-control" id="tlp" name="tlp" value="{{ $b->tlp }}" required>
                         </div>
 
                         <div class="form-group m-2">
@@ -57,8 +57,8 @@
                             <input type="text" class="form-control" id="gajiperjam" name="gajiperjam" value="{{ $b->gajiperjam }}" required>
                         </div>
 
-                            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"style="margin-top: 20px;">Batal</button>
+                        <button type="submit" class="btn btn-success" style="margin-top: 20px;"><i class="fas fa-save me-2"></i> Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"style=" margin-top: 20px;"><i class="fas fa-times me-2"></i> Batal</button>
                     </form>
                 </div>
             </div>

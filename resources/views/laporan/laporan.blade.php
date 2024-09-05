@@ -83,19 +83,19 @@
                 <i class="fas fa-calendar-check"></i>
                 <h3>Laporan Absen</h3>
                 <p>Menampilkan laporan kehadiran guru dalam satu bulan atau periode tertentu.</p>
-                <button onclick="window.location.href='{{ url('/laporanabsen') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
+                <button onclick="window.location.href='{{ url('/laporanabsen') }}'" class="btn btn-success">Lihat Laporan Absen<a class="fas fa-arrow-right ms-2"></a></button>
             </div>
             <div class="report-card">
                 <i class="fas fa-money-bill-wave"></i>
                 <h3>Laporan Gaji</h3>
                 <p>Melihat laporan pembayaran gaji guru berdasarkan data yang ada.</p>
-                <button onclick="window.location.href='{{ url('/laporangaji') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
+                <button onclick="window.location.href='{{ url('/laporangaji') }}'" class="btn btn-success">Lihat Laporan Gaji<a class="fas fa-arrow-right ms-2"></a></button>
             </div>
             <div class="report-card">
                 <i class="fas fa-chalkboard-teacher"></i>
                 <h3>Laporan Guru</h3>
                 <p>Mengakses informasi lengkap mengenai data guru yang terdaftar.</p>
-                <button onclick="window.location.href='{{ url('/laporanguru') }}'" class="btn btn-success">Lihat Laporan<a class="fas fa-arrow-right ms-2"></a></button>
+                <button onclick="window.location.href='{{ url('/laporanguru') }}'" class="btn btn-success">Lihat Laporan Guru<a class="fas fa-arrow-right ms-2"></a></button>
             </div>
         </div>
     </div>

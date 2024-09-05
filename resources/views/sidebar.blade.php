@@ -36,6 +36,12 @@ li {
     margin-left: 80px;
     width: 94%;
 }
+
+.sidebar-link.active {
+    background-color: rgba(154, 154, 154, 0.233); /* Ubah sesuai kebutuhan */
+    border-left: 3px solid red;
+}
+
 </style>
 
 <div>
@@ -51,36 +57,36 @@ li {
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="home" class="sidebar-link" title="Beranda">
+                    <a href="{{ url('home') }}" class="sidebar-link {{ Request::is('home') ? 'active' : '' }}" title="Beranda">
                         <i class="fas fa-home"></i>
                         <span>Beranda</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="guru" class="sidebar-link" title="Data Guru">
+                    <a href="{{ url('guru') }}" class="sidebar-link {{ Request::is('guru') ? 'active' : '' }}" title="Data Guru">
                         <i class="fas fa-users"></i>
                         <span>Data Guru</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="absen" class="sidebar-link" title="Data Absen">
+                    <a href="{{ url('absen') }}" class="sidebar-link {{ Request::is('absen') ? 'active' : '' }}" title="Data Absen">
                         <i class="fas fa-user-check"></i>
                         <span>Data Absen</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="gaji" class="sidebar-link" title="Data Gaji"> 
-                        <i class="fas fa-coins"></i>
+                    <a href="{{ url('gaji') }}" class="sidebar-link {{ Request::is('gaji') ? 'active' : '' }}" title="Data Gaji"> 
+                        <i class="fas fa-coins me-3"></i>
                         <span>Data Gaji</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="laporan" class="sidebar-link" title="Laporan"> 
-                        <i class="fas fa-file-alt"></i> 
+                    <a href="{{ url('laporan') }}" class="sidebar-link {{ Request::is('laporan') ? 'active' : '' }}" title="Laporan"> 
+                        <i class="fas fa-file-alt me-3"></i> 
                         <span>Laporan</span>
                     </a>
                 </li>
-            </ul>            
+            </ul>                               
             
             <div class="d-flex bg-white">
                 <li class="sidebar-footer bg-white">

@@ -20,7 +20,7 @@
             <p>Berikut adalah informasi tentang data absen para guru tiap bulan:</p>
         </div>
         <div class="tombol-container mt-2 d-flex" style="flex-grow: 1; justify-content: right;">
-            <button class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahModal"><i class="lni lni-plus pe-2"></i>Tambah Data Absen</button>
+            <button class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus pe-2"></i>Tambah Data Absen</button>
         </div>
     </div>
     <div class="table-responsive bg-white rounded p-4">
@@ -50,7 +50,7 @@
                     <th>NIK</th>
                     <th>Nama Guru</th> 
                     <th>Jumlah Jam/Hari</th>
-                    <th>Jumlah Hari</th>
+                    <th>Jumlah Hari/Bulan</th>
                     <th>Tanggal Pencatatan</th>
                     <th>Status Gaji</th>
                     <th>Aksi</th>

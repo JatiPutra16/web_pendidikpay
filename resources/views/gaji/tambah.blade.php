@@ -79,8 +79,8 @@
                     </div>
 
                     <!-- Tombol Submit -->
-                    <button type="submit" class="btn btn-success" style="margin-top: 20px;">Tambah</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-top: 20px;">Batal</button>
+                    <button type="submit" class="btn btn-success" style="margin-top: 20px;"><i class="fas fa-plus me-2"></i> Bayar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"style=" margin-top: 20px;"><i class="fas fa-times me-2"></i> Batal</button>
                 </form>
             </div>
         </div>
