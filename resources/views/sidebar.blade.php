@@ -3,6 +3,9 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -14,42 +17,102 @@ li {
 }
 
 #sidebar {
-    width: 60px;
+    width: 240px;
     height: 100vh;
+    z-index: 1000;
     position: fixed;
+    top: 0;
     left: 0;
-    z-index: 9999;
-    overflow-x: hidden;
-    overflow-y: auto;
+    background-color: #220B44;
+    transition: transform 0.25s ease-in-out;
+    transform: translateX(0); /* Sidebar default terbuka */
+    display: flex;
+    flex-direction: column; /* Mengatur elemen di dalam sidebar dalam kolom */
+    justify-content: space-between;
 }
 
-.navbar{
+.sidebar-closed {
+    transform: translateX(-240px); /* Menyembunyikan sidebar */
+}
+
+#main-content {
+    transition: margin-left 0.25s ease-in-out;
+    margin-left: 240px; /* Konten bergeser saat sidebar terbuka */
+    width: calc(100% - 240px); /* Lebar konten saat sidebar terbuka */
+}
+
+.content-expanded {
+    margin-left: 0; /* Konten bergeser saat sidebar tertutup */
+    width: 100%; /* Konten memenuhi seluruh lebar layar saat sidebar tertutup */
+}
+
+.navbar {
     position: fixed;
-    width: 97%;
-    margin-left: 60px;
-    z-index: 888;
-    align-content: center;
+    width: 100%;
+    z-index: 888;   
 }
 
-.content-container{
+.content-container {
     margin-top: 80px;
-    margin-left: 80px;
-    width: 94%;
+    width: 100%;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in;
 }
 
 .sidebar-link.active {
-    background-color: rgba(154, 154, 154, 0.233); /* Ubah sesuai kebutuhan */
-    border-left: 3px solid red;
+    background-color: rgba(255, 255, 255, .075);
+    border-left: 3px solid #D03737;
 }
 
+.sidebar-link.active i {
+    color: #fff;
+}
+
+.sidebar-link.active span {
+    font-weight: bold;
+}
+
+/* Responsif: sidebar otomatis tertutup di layar kecil */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-240px); /* Sidebar tertutup di layar kecil */
+    }
+
+    #sidebar.sidebar-open {
+        transform: translateX(0); /* Membuka sidebar di layar kecil */
+    }
+
+    #main-content {
+        margin-left: 0;
+        width: 100vw; /* Memastikan konten menggunakan lebar penuh di layar kecil */
+    }
+
+    .toggle-sidebar-menu {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .admin{
+        margin-right: 0px;
+    }
+}
 </style>
 
 <div>
-    <div class="wrapper">
-        <aside id="sidebar">
+    <div class="container-fluid">
+        <aside id="sidebar" class="p-0 m-0">
             <div class="d-flex bg-white pb-2">
                 <button class="toggle-btn" type="button">
-                    <img src="{{asset('gambar/icon_app.png')}}" class="img-fluid">
+                    <img src="{{asset('gambar/icon_app.png')}}" class="img-fluid" width="60px">
                 </button>
                 <div class="sidebar-logo">
                     <img src="{{asset('gambar/icon_text.png')}}" href="home" class="img-fluid">
@@ -75,18 +138,18 @@ li {
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{ url('gaji') }}" class="sidebar-link {{ Request::is('gaji') ? 'active' : '' }}" title="Data Gaji"> 
+                    <a href="{{ url('gaji') }}" class="sidebar-link {{ Request::is('gaji') ? 'active' : '' }}" title="Data Gaji">
                         <i class="fas fa-coins me-3"></i>
                         <span>Data Gaji</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{ url('laporan') }}" class="sidebar-link {{ Request::is('laporan') ? 'active' : '' }}" title="Laporan"> 
-                        <i class="fas fa-file-alt me-3"></i> 
+                    <a href="{{ url('laporan') }}" class="sidebar-link {{ Request::is('laporan') ? 'active' : '' }}" title="Laporan">
+                        <i class="fas fa-file-alt me-3"></i>
                         <span>Laporan</span>
                     </a>
                 </li>
-            </ul>                               
+            </ul>      
             
             <div class="d-flex bg-white">
                 <li class="sidebar-footer bg-white">
@@ -121,28 +184,29 @@ li {
                 </li>
             </form>
         </aside>
+    </div>
 
-        <!--  lOGOUT MODAL -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-blue">
-                        <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah Anda yakin ingin keluar?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <form id="logoutForm" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </div>
+    <!--  lOGOUT MODAL -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin keluar?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
@@ -153,7 +217,7 @@ li {
 </script>
 
 
-<script>
+{{-- <script>
 const hamBurger = document.querySelector(".toggle-btn");
 
 hamBurger.addEventListener("click", function () {
@@ -168,7 +232,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 navbarToggler.click();
             });
         });
+</script> --}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const toggleSidebarBtn = document.getElementById('toggleSidebar'); // Tombol navbar
+
+        // Toggle sidebar ketika tombol ditekan
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-closed');
+            sidebar.classList.toggle('sidebar-open');
+            
+            // Perbarui lebar konten berdasarkan status sidebar
+            if (sidebar.classList.contains('sidebar-closed')) {
+                mainContent.classList.add('content-expanded');
+            } else {
+                mainContent.classList.remove('content-expanded');
+            }
+        });
+    });
+
+    document.addEventListener('click', function (event) {
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+
+        // Tutup sidebar jika klik terjadi di luar sidebar dan tombol toggle
+        if (!sidebar.contains(event.target) && !toggleSidebarBtn.contains(event.target) && sidebar.classList.contains('sidebar-open')) {
+            sidebar.classList.remove('sidebar-open');
+            sidebar.classList.add('sidebar-closed');
+            document.getElementById('main-content').classList.add('content-expanded');
+        }
+    });
+
 </script>
+
 
 
 

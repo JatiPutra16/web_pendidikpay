@@ -63,10 +63,15 @@
     #calendar {
         max-width: 100%; /* Atur lebar maksimal kalender */
     }
+
+    #grafikGaji {
+        min-width: 100% !important; /* Mengatur lebar menjadi 100% dari elemen pembungkus */
+        height: 400px; /* Tentukan tinggi yang sesuai */
+    }
 </style>
 
 <div class="wrapper d-block">
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-2">
         <div class="row">
             <!-- Grid Kiri (9) -->
             <div class="col-md-9">
@@ -90,8 +95,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">Data Absen</h5>
                                 <h3 class="card-title">{{ $jumlahAbsen }}</h3>
-                                <p class="card-text">Menyajikan catatan kehadiran dan waktu mengajar dari para guru.</p>
-                                <a href="/absen" class="btn btn-danger">Lihat Data <i class="fas fa-arrow-right ms-2"></i></a>
+                                <p class="card-text">Menyajikan catatan jam kerja dan hari dari para guru.</p>
+                                <a href="/absen" class="btn btn-danger ">Lihat Data <i class="fas fa-arrow-right ms-2"></i></a>
                             </div>
                         </div>
                     </div>
@@ -113,8 +118,10 @@
                 <div class="col-lg-12 mt-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Grafik Kenaikan Gaji per Bulan</h5>
-                            <canvas id="grafikGaji"></canvas>
+                            <h5 class="card-title">Grafik Gaji per Bulan</h5>
+                            <div style="position: relative; height: 400px;">
+                                <canvas id="grafikGaji"></canvas>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -127,7 +134,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Jam Saat Ini</h5>
                         <div id="current-time"></div>
-                        <div id="calendar" class="mt-3""></div>
+                        <div id="calendar" class="mt-3 h-auto""></div>
                     </div>
                 </div>
     
@@ -175,8 +182,8 @@
             </a>
         </div>
         <hr class="mt-1">
-        <div class="faq-section bg-light mt-5">
-            <h2 class="faq-title">Pertanyaan Yang Sering Diajukan</h2>
+        <div class="faq-section bg-light mt-5 rounded">
+            <h2 class="faq-title py-2">Pertanyaan Yang Sering Diajukan</h2>
             <div id="faqAccordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -223,7 +230,7 @@
             </div>
         </div>
     
-        <div class="contact bg-light pt-2 mt-5 pb-4 rounded p-5 mb-3">
+        <div class="contact bg-light pt-2 mt-5 pb-4 rounded p-5 mb-1">
             <h2 class="text-center">Hubungi Kami</h2>
             <form>
                 <div class="mb-3">
@@ -266,13 +273,11 @@
         var today = new Date();
         $('#calendar').fullCalendar({
             header: {
-                left : 'prev,next ',
+                left : '',
                 center: 'title',
-                right : 'today,month,agendaDay'
+                right : ''
             },
             defaultDate: today,
-            navLinks: true, 
-            editable: true,
             eventLimit: true,
         });
         $('#calendar').fullCalendar('gotoDate', today);
@@ -280,33 +285,36 @@
 </script>
 
 <script>
-   // Mengatur ukuran canvas dengan JavaScript
-const grafikGajiCanvas = document.getElementById('grafikGaji');
-grafikGajiCanvas.width = 800; // Lebar sesuai dengan kontainer, dikurangi 20px untuk padding
-grafikGajiCanvas.height = 400; // Tinggi yang diinginkan
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mengatur ukuran canvas dengan JavaScript
+        const grafikGajiCanvas = document.getElementById('grafikGaji');
 
-// Inisialisasi Chart.js setelah mengatur ukuran
-const ctx = grafikGajiCanvas.getContext('2d');
-const grafikGaji = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: @json($gajiPerBulan->pluck('bulan')),
-        datasets: [{
-            label: 'Total Gaji',
-            data: @json($gajiPerBulan->pluck('total')),
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 2,
-            fill: true
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
+        // Inisialisasi Chart.js setelah mengatur ukuran
+        const ctx = grafikGajiCanvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @json($gajiPerBulan->pluck('bulan')),
+                datasets: [{
+                    label: 'Total Gaji',
+                    data: @json($gajiPerBulan->pluck('total')),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true, // Mengaktifkan fitur responsive
+                maintainAspectRatio: false, // Menonaktifkan ratio aspek default
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-        }
-    }
-});
+        });
+
+    });
 
 </script>
 

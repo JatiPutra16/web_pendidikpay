@@ -13,7 +13,7 @@
     }
 </style>
 
-<div class="container mt-3">
+<div class="container mt-2">
     <div class="bg-white rounded px-3 py-1 mb-3 d-flex justify-content-between">
         <div class="me-3">
             <h1>Data Guru</h1>

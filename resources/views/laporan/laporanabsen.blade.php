@@ -12,10 +12,10 @@
 </style>
 
 
-<div class="container mt-3">
+<div class="container mt-1">
     <nav style="--bs-breadcrumb-divider: '/'" aria-label="breadcrumb">
         <ol class="breadcrumb text-dark">
-            <li class="breadcrumb-item"><a href="{{ route('laporanTampil') }}" class="text-white text-decoration-none">Menu Utama Laporan</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('laporanTampil') }}" class="text-danger text-decoration-none">Menu Utama Laporan</a></li>
             <li class="breadcrumb-item active" aria-current="page">Laporan Absen</li>
             <li class="breadcrumb-item"><a href="{{ route('laporanGajiTampil') }}" class="text-white text-decoration-none">Laporan Gaji</a></li>
             <li class="breadcrumb-item"><a href="{{ route('laporanGuru') }}" class="text-white text-decoration-none">Laporan Guru</a></li>
@@ -45,7 +45,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="bulan">Bulan</label>
-                        <input type="month" name="bulan" id="bulan" class="form-control" value="{{ request()->get('bulan') }}">
+                        <input type="month" name="bulan" id="bulan" class="form-control" value="{{ request()->get('bulan') }}"> 
                     </div>
                 </div>
 
@@ -246,7 +246,7 @@
             "searching": false,  // Nonaktifkan search box
             "paging": true,      // Mengaktifkan pagination
             "info": true,        // Menampilkan informasi jumlah data
-            "lengthChange": false, // Menyembunyikan opsi untuk mengubah jumlah data yang ditampilkan per halaman
+            "lengthChange": true, // Menyembunyikan opsi untuk mengubah jumlah data yang ditampilkan per halaman
             "ordering": true     // Mengaktifkan fitur pengurutan
         });
     });

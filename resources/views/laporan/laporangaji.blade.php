@@ -11,10 +11,10 @@
     }
 </style>
 
-<div class="container mt-3">
+<div class="container mt-1">
     <nav style="--bs-breadcrumb-divider: '/'" aria-label="breadcrumb">
         <ol class="breadcrumb text-dark">
-            <li class="breadcrumb-item"><a href="{{ route('laporanTampil') }}" class="text-white text-decoration-none">Menu Utama Laporan</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('laporanTampil') }}" class="text-danger text-decoration-none">Menu Utama Laporan</a></li>
             <li class="breadcrumb-item"><a href="{{ route('laporanAbsen') }}" class="text-white text-decoration-none">Laporan Absen</a></li>
             <li class="breadcrumb-item active" aria-current="page">Laporan Gaji</li>
             <li class="breadcrumb-item"><a href="{{ route('laporanGuru') }}" class="text-white text-decoration-none">Laporan Guru</a></li>
@@ -158,7 +158,7 @@
             "searching": false,  // Nonaktifkan search box
             "paging": true,      // Mengaktifkan pagination
             "info": true,        // Menampilkan informasi jumlah data
-            "lengthChange": false, // Menyembunyikan opsi untuk mengubah jumlah data yang ditampilkan per halaman
+            "lengthChange": true, // Menyembunyikan opsi untuk mengubah jumlah data yang ditampilkan per halaman
             "ordering": true     // Mengaktifkan fitur pengurutan
         });
     });

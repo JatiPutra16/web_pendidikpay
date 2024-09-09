@@ -13,7 +13,7 @@
     }
 </style>
 
-<div class="container mt-3">
+<div class="container mt-2">
     <div class="bg-white rounded px-3 py-1 mb-3 d-flex justify-content-between">
         <div class="me-3">
             <h1>Data Absen</h1>
@@ -77,7 +77,7 @@
                                 <button class="btn btn-warning my-1 text-white" onclick="openEditModal({{ $b->idabsen }})" {{ $b->status_gaji == 'Sudah Dibayar' ? 'disabled' : '' }}>
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="btn btn-danger my-1" onclick="openDeleteModal({{ $b->idabsen }}, '{{ $b->nik }}', '{{ $b->namaguru }}')" {{ $b->status_gaji == 'Sudah Dibayar' ? 'disabled' : '' }}>
+                                <button class="btn btn-danger my-1" onclick="openDeleteModal({{ $b->idabsen }}, '{{ $b->guru->nik }}', '{{ $b->guru->namaguru }}')" {{ $b->status_gaji == 'Sudah Dibayar' ? 'disabled' : '' }}>
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </div>

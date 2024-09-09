@@ -43,19 +43,19 @@
         font-family: 'Poppins', sans-serif;
         color: white;
     }
-
-    
-
 </style>
 
-<div class="main">
+<div class="main" id="main-content" class="content-container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-white">
-        <button class="bg-danger navbar-toggler ms-auto me-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle"  aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler me-auto ms-2" type="button" id="toggleSidebar" style="background-color: #220B44;">
+            <i class="fas fa-angle-double-right text-white"></i>
+        </button>
+        <button class="bg-danger navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle"  aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
         </button>
 
         <div class="collapse navbar-collapse mt-1" id="navbarToggle">
-            <ul class="container navbar-nav me-auto ">
+            <ul class="container navbar-nav ms-3">
                 <li class="nav-item menu">
                     <a class="nav-link" href="home" style="cursor: pointer">
                         <span>Beranda</span>
@@ -76,7 +76,7 @@
                         <span>Profil</span>
                     </a>
                 </li>
-                <li class="admin bg-white p-1 rounded ms-auto">
+                <li class="admin bg-white p-1 rounded ms-auto me-5">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <span>Hello Admin</span>
@@ -89,11 +89,12 @@
     </nav>
     
     <!--  TENTANG MODAL -->
-    <div class="modal fade " id="tentangModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
+    <div class="modal fade" id="tentangModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h3 class="modal-title" id="tentangModalLabel">Tentang Aplikasi</h3>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-blue" style="max-height: 500px; overflow-y: auto;"> 
                     <div>
@@ -114,107 +115,109 @@
         </div>
     </div>
 
-<!-- KONTAK MODEL -->
-<div class="modal fade" id="kontakModal" tabindex="-1" aria-labelledby="kontakModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h3 class="modal-title" id="kontakModalLabel">Kontak Pembuat</h3>
-            </div>
-            <div class="modal-body bg-blue">
-                <div class="container">
-                    <div>
+    <!-- KONTAK MODEL -->
+    <div class="modal fade" id="kontakModal" tabindex="-1" aria-labelledby="kontakModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h3 class="modal-title" id="kontakModalLabel">Kontak Pembuat</h3>
+                    <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-blue">
+                    <div class="container">
                         <div>
-                            <div class="card border-danger mb-3">
-                                <div class="card-header bg-danger text-white mt-3">Informasi Kontak</div>
-                                <div class="card-body text-dark m-1">
-                                    <a href="mailto:jatibintang16@gmail.com" class="text-decoration-none">
-                                        <div class="card card-body m-1">
-                                            <p class="card-text">
-                                                <i class="fas fa-envelope"></i>
-                                                <span class="ms-2">Email: <span>
-                                                jatibintang16@gmail.com
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <a href="tel:+6282120344425" class="text-decoration-none">
-                                        <div class="card card-body m-1">
-                                            <p class="card-text">
-                                                <i class="fas fa-phone"></i>
-                                                <span class="ms-2">Nomor Handphone: </span> 
-                                                +6282120344425
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <a href="https://www.instagram.com/jt.putraa/" class="text-decoration-none" target="_blank">
-                                        <div class="card card-body m-1">
-                                            <p class="card-text">
-                                                <i class="fab fa-instagram"></i> 
-                                                <span class="ms-2">Instagram: </span>
-                                                jt.putraa
-                                            </p>
-                                        </div>
-                                    </a>
+                            <div>
+                                <div class="card border-danger mb-3">
+                                    <div class="card-header bg-danger text-white mt-3">Kontak Yang Dapat Dihubungi</div>
+                                    <div class="card-body text-dark m-1">
+                                        <a href="mailto:jatibintang16@gmail.com" class="text-decoration-none">
+                                            <div class="card card-body m-1">
+                                                <p class="card-text">
+                                                    <i class="fas fa-envelope"></i>
+                                                    <span class="ms-2">Email: <span>
+                                                    jatibintang16@gmail.com
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <a href="tel:+6282120344425" class="text-decoration-none">
+                                            <div class="card card-body m-1">
+                                                <p class="card-text">
+                                                    <i class="fas fa-phone"></i>
+                                                    <span class="ms-2">Nomor Handphone: </span> 
+                                                    +6282120344425
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <a href="https://www.instagram.com/jt.putraa/" class="text-decoration-none" target="_blank">
+                                            <div class="card card-body m-1">
+                                                <p class="card-text">
+                                                    <i class="fab fa-instagram"></i> 
+                                                    <span class="ms-2">Instagram: </span>
+                                                    jt.putraa
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <div class="card border-danger mb-3">
-                                <div class="card-header bg-danger text-white mt-3">Alamat</div>
-                                <div class="card-body text-dark m-1">
-                                    <a href="https://www.google.com/maps?q=Jl.+Bukit+Permata+G2+No.+39,+Cilame,+Ngamparah+Kabupaten+Bandung+Barat,+Indonesia" class="text-decoration-none" target="_blank">
-                                        <div class="card card-body m-1">
-                                            <p class="card-text">
-                                                <i class="fas fa-map-marker-alt"></i> 
-                                                <span class="ms-2">Alamat: </span>
-                                                Jl. Bukit Permata G2 No. 39, Cilame, Ngamparah Kabupaten Bandung Barat, Indonesia
-                                            </p>
-                                        </a>
+                            <div>
+                                <div class="card border-danger mb-3">
+                                    <div class="card-header bg-danger text-white mt-3">Alamat Kami</div>
+                                    <div class="card-body text-dark m-1">
+                                        <a href="https://maps.app.goo.gl/8PZit2ZnyA2eUoro9" class="text-decoration-none" target="_blank">
+                                            <div class="card card-body m-1">
+                                                <p class="card-text">
+                                                    <i class="fas fa-map-marker-alt"></i> 
+                                                    <span class="ms-2">Alamat: </span>
+                                                    Jl. Mahar Martanegara No.48, Utama, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40533
+                                                </p>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer bg-blue">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
+                <div class="modal-footer bg-blue">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- PROFILE MODAL -->
-<div class="modal fade" id="profilModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h3 class="modal-title" id="tentangModalLabel">Profil Pembuat</h3>
-            </div>
-            <div class="modal-body bg-blue">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 text-center">
-                            <img src="{{asset('gambar/jati.png')}}" class="img-fluid rounded-circle mb-3 mb-md-0" style="width: 200px; height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="profil-text">
-                                <h2>Jati Bintang</h2>
-                                <h5>Samudera Kharisma Putra</h5>
-                                <br>
-                                <h5>Informasi Profil</h5>
-                                <label style="text-align: justify;">Jati Bintang Samudera Kharisma Putra yang kerap disapa Jati ialah seorang yang berasal dari Bandung dan lahir pada 16 Juni 2006. Dia telah menempuh pendidikan formal di SD Negeri Padasuka Mandiri 3, SMP Negeri 3 Ngamprah, dan SMK Negeri 1 Cimahi. Pada tahun 2022, Jati melanjutkan Pendidikan di SMK Negeri 1 Cimahi, Jurusan RPL (Rekayasa Perangkat Lunak).</label>
+    <!-- PROFILE MODAL -->
+    <div class="modal fade" id="profilModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h3 class="modal-title" id="tentangModalLabel">Profil Pembuat</h3>
+                    <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-blue">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <img src="{{asset('gambar/jati.png')}}" class="img-fluid rounded-circle mb-3 mb-md-0" style="width: 200px; height: 200px; object-fit: cover;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="profil-text">
+                                    <h2>Jati Bintang</h2>
+                                    <h5>Samudera Kharisma Putra</h5>
+                                    <br>
+                                    <h5>Informasi Profil</h5>
+                                    <label style="text-align: justify;">Jati Bintang Samudera Kharisma Putra yang kerap disapa Jati ialah seorang yang berasal dari Bandung dan lahir pada 16 Juni 2006. Dia telah menempuh pendidikan formal di SD Negeri Padasuka Mandiri 3, SMP Negeri 3 Ngamprah, dan SMK Negeri 1 Cimahi. Pada tahun 2022, Jati melanjutkan Pendidikan di SMK Negeri 1 Cimahi, Jurusan RPL (Rekayasa Perangkat Lunak).</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer bg-blue">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
+                <div class="modal-footer bg-blue">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 

@@ -187,6 +187,6 @@ class GajiController extends Controller
         $gaji = Gaji::with(['guru', 'absen'])->findOrFail($id);
 
         $pdf = PDF::loadView('gaji.pdf-prive', compact('gaji'));
-        return $pdf->stream('laporan-gaji-' . $gaji->id . '.pdf');
+        return $pdf->stream('laporan-gaji-' . $gaji->namaguru . '.pdf');
     }
 }

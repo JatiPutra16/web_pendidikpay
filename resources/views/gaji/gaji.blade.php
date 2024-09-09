@@ -13,7 +13,7 @@
     }
 </style>
 
-<div class="container mt-3">
+<div class="container mt-2">
     <div class="bg-white rounded px-3 py-1 mb-3 d-flex justify-content-between">
         <div class="me-3">
             <h1>Data Gaji</h1>
@@ -138,7 +138,7 @@
 
         function cetakPDFprive(idgaji) {
             var url = "/gaji/cetak-pdf-prive/" + idgaji;
-            window.location.href = url;
+            window.open(url, '_blank');
         }
     </script>
 

@@ -5,10 +5,6 @@
     padding: 0;
 }
 
-.wrapper {
-    display: flex;
-}
-
 .main {
     display: flex;
     flex-direction: column;
@@ -20,20 +16,6 @@
     min-width: 0;
 }
 
-#sidebar {
-    width: 70px;
-    min-width: 70px;
-    z-index: 1000;
-    transition: all .25s ease-in-out;
-    background-color: #220B44;
-    display: flex;
-    flex-direction: column;
-}
-
-#sidebar.expand {
-    width: 260px;
-    min-width: 260px;
-}
 
 .toggle-btn {
     background-color: transparent;
@@ -57,25 +39,11 @@
     font-weight: 1000;
 }
 
-#sidebar:not(.expand) .sidebar-logo,
-#sidebar:not(.expand) a.sidebar-link span {
-    display: none;
+a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.178);
+    border-left: 3px solid #ff0000;
 }
 
-#sidebar.expand .sidebar-logo,
-#sidebar.expand a.sidebar-link span {
-    animation: fadeIn .25s ease;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
 
 .sidebar-nav {
     padding: 2rem 0;
@@ -97,49 +65,11 @@ a.sidebar-link {
     margin-right: .75rem;
 }
 
-a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
-    border-left: 3px solid #D03737;
-}
 
 .sidebar-item {
     position: relative;
 }
 
-#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
-    position: absolute;
-    top: 0;
-    left: 70px;
-    background-color: #0e2238;
-    padding: 0;
-    min-width: 15rem;
-    display: none;
-}
-
-#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
-    display: block;
-    max-height: 15em;
-    width: 100%;
-    opacity: 1;
-}
-
-#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
-    border: solid;
-    border-width: 0 .075rem .075rem 0;
-    content: "";
-    display: inline-block;
-    padding: 2px;
-    position: absolute;
-    right: 1.5rem;
-    top: 1.4rem;
-    transform: rotate(-135deg);
-    transition: all .2s ease-out;
-}
-
-#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
-    transform: rotate(45deg);
-    transition: all .2s ease-out;
-}
 
 .navbar {
     background-color: #f5f5f5;
@@ -162,8 +92,6 @@ a.sidebar-link:hover {
     margin-right: 20px;
     margin-left: 10px;
 }
-
-@media (min-width: 768px) {}
 
 .bg-red{
     background-color: #D03737;
@@ -198,4 +126,22 @@ a.sidebar-link:hover {
 
 .red-dot {
     color: white;
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar vertikal */
+    height: 8px; /* Lebar scrollbar horizontal */
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.1); /* Warna background track scrollbar, sedikit tembus pandang */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* Warna thumb scrollbar, sedikit tembus pandang */
+    border-radius: 10px; /* Membuat ujung scrollbar membulat */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* Warna thumb saat di-hover, lebih gelap */
 }
